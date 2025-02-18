@@ -2,7 +2,7 @@ package in.co.rays.bean;
 
 import java.sql.Timestamp;
 
-public class BaseBean {
+public abstract class BaseBean implements DropdownListBean {
 	// BaseBean is parent Bean of all Bean classes
 	// maven is a powerfull automation tool given the dependancy
 	private Long id;
