@@ -22,7 +22,7 @@ public class TestEmailUtility {
 			System.out.println("message sending ===>>>: " + message.toString());
 
 			EmailMessage emailMessage = new EmailMessage();
-			emailMessage.setTo("amanyashona465@gmail.com");
+			emailMessage.setTo("vishalvish7099@gmail.com");
 			emailMessage.setSubject("Registration is successful for ORS Project");
 			emailMessage.setMessage(message);
 			emailMessage.setMessageType(EmailMessage.HTML_MSG);
