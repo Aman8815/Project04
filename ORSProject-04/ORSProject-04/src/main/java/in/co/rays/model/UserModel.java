@@ -1,46 +1,90 @@
 package in.co.rays.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import in.co.rays.bean.UserBean;
+import in.co.rays.exception.ApplicationException;
+import in.co.rays.exception.DatabaseException;
+import in.co.rays.exception.DuplicateRecordException;
+import in.co.rays.util.EmailBuilder;
+import in.co.rays.util.EmailMessage;
+import in.co.rays.util.EmailUtility;
 import in.co.rays.util.JDBCDataSource;
 
 public class UserModel {
 
-	public int nextPk() throws SQLException, Exception {
-		int pk = 1;
-		Connection con = JDBCDataSource.getConnection();
-		PreparedStatement pstmt = con.prepareStatement("select max(id) from st_user");
+	public Integer nextPk() throws DatabaseException {
 
-		ResultSet rs = pstmt.executeQuery();
-		while (rs.next()) {
-			pk = pk + rs.getInt(1);
+		Connection conn = null;
+		int pk = 0;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_user");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pk = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			throw new DatabaseException("Exception : Exception in getting PK " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
 		}
-		return pk;
+		return pk + 1;
 	}
 
-	public void add(UserBean bean) throws SQLException, Exception {
-		UserModel model = new UserModel();
+	public Integer add(UserBean bean) throws DuplicateRecordException, ApplicationException {
 
-		UserBean exist = model.findByLoginId(bean);
-		if (exist != null) {
-			System.err.println("LoginId Already exist");
+		if (bean == null) {
+			System.out.println("bean is null");
 		} else {
+			System.out.println("bean is not null");
+			System.out.print(bean.getId());
+			System.out.print("\t" + bean.getFirstName());
+			System.out.print("\t" + bean.getLastName());
+			System.out.print("\t" + bean.getLogin());
+			System.out.print("\t" + bean.getPassword());
+			System.out.print("\t" + bean.getDob());
+			System.out.print("\t" + bean.getMobileNo());
+			System.out.print("\t" + bean.getRoleId());
+			System.out.print("\t" + bean.getGender());
+			System.out.print("\t" + bean.getCreatedBy());
+			System.out.print("\t" + bean.getModifiedBy());
+			System.out.print("\t" + bean.getCreatedDatetime());
+			System.out.println("\t" + bean.getModifiedDatetime());
+		}
 
-			Connection con = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = con.prepareStatement("insert into st_user values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		Connection conn = null;
+		int pk = 0;
 
-			pstmt.setInt(1, nextPk());
+		UserBean existBean = findByLogin(bean.getLogin());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("login already exist..!!");
+		}
+
+		try {
+			pk = nextPk();
+
+			conn = JDBCDataSource.getConnection();
+
+			conn.setAutoCommit(false);
+
+			PreparedStatement pstmt = conn
+					.prepareStatement("insert into st_user values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+			pstmt.setLong(1, pk);
 			pstmt.setString(2, bean.getFirstName());
 			pstmt.setString(3, bean.getLastName());
 			pstmt.setString(4, bean.getLogin());
 			pstmt.setString(5, bean.getPassword());
-			pstmt.setDate(6, new java.sql.Date(bean.getDob().getDate()));
+			pstmt.setDate(6, new java.sql.Date(bean.getDob().getTime()));
 			pstmt.setString(7, bean.getMobileNo());
 			pstmt.setLong(8, bean.getRoleId());
 			pstmt.setString(9, bean.getGender());
@@ -48,22 +92,38 @@ public class UserModel {
 			pstmt.setString(11, bean.getModifiedBy());
 			pstmt.setTimestamp(12, bean.getCreatedDatetime());
 			pstmt.setTimestamp(13, bean.getModifiedDatetime());
-			pstmt.executeUpdate();
 
-			System.out.println("Data Insert Successfully");
+			int i = pstmt.executeUpdate();
+			conn.commit();
+			System.out.println("data inserted => " + i);
+
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				throw new ApplicationException("Exception : add rollback exception " + ex.getMessage());
+			}
+			throw new ApplicationException("Exception : Exception in add User " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
 		}
+		return pk;
 	}
 
-	public void upadte(UserBean bean) throws SQLException, Exception {
-		UserModel model = new UserModel();
+	public void update(UserBean bean) throws ApplicationException, DuplicateRecordException {
 
-		UserBean exist = model.findByLoginId(bean);
-		if (exist != null ) {
-			System.err.println("LoginId Already exist");
-		} else {
+		Connection conn = null;
 
-			Connection con = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = con.prepareStatement(
+		UserBean existBean = findByLogin(bean.getLogin());
+
+		if (existBean != null && bean.getId() != existBean.getId()) {
+			throw new DuplicateRecordException("login already exist..!!");
+		}
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement(
 					"update st_user set first_name = ?, last_name = ?, login = ?, password = ?, dob = ?, mobile_no = ?, role_id = ?, gender = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ?  where id = ?");
 
 			pstmt.setString(1, bean.getFirstName());
@@ -80,138 +140,242 @@ public class UserModel {
 			pstmt.setTimestamp(12, bean.getModifiedDatetime());
 			pstmt.setLong(13, bean.getId());
 
-			pstmt.executeUpdate();
-			System.out.println("data successfully Update");
-
+			int i = pstmt.executeUpdate();
+			conn.commit();
+			System.out.println("data updated => " + i);
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
+			}
+			throw new ApplicationException("Exception in updating User " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
 		}
 	}
 
-	public void delete(int id) throws SQLException, Exception {
-		Connection con = JDBCDataSource.getConnection();
-		PreparedStatement pstmt = con.prepareStatement("Delete from st_user where id =?");
-		pstmt.setInt(1, id);
-		pstmt.executeUpdate();
+	public void delete(long id) throws ApplicationException {
 
-		System.out.println("Delete data succesfully");
+		Connection conn = null;
 
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			conn.setAutoCommit(false);
+
+			PreparedStatement pstmt = conn.prepareStatement("delete from st_user where id = ?");
+
+			pstmt.setLong(1, id);
+
+			int i = pstmt.executeUpdate();
+
+			conn.commit();
+
+			System.out.println("data deleted => " + i);
+
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				throw new ApplicationException("Exception : add rollback exception " + ex.getMessage());
+			}
+			throw new ApplicationException("Exception : Exception in delete User " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
 	}
-	
-	 public List list() throws SQLException, Exception {
-		 return (search(null, 0, 0));
-		  
-	 }
 
-	public List search(UserBean bean,int pageNo , int pageSize) throws SQLException, Exception {
-		List list = new ArrayList();
-		Connection con = JDBCDataSource.getConnection();
-		StringBuffer stf = new StringBuffer("select * from st_user where 1 = 1 ");
+	public UserBean findByPk(long id) throws ApplicationException {
+
+		Connection conn = null;
+		UserBean bean = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_user where id = ?");
+
+			pstmt.setLong(1, id);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new UserBean();
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setLogin(rs.getString(4));
+				bean.setPassword(rs.getString(5));
+				bean.setDob(rs.getDate(6));
+				bean.setMobileNo(rs.getString(7));
+				bean.setRoleId(rs.getLong(8));
+				bean.setGender(rs.getString(9));
+				bean.setCreatedBy(rs.getString(10));
+				bean.setModifiedBy(rs.getString(11));
+				bean.setCreatedDatetime(rs.getTimestamp(12));
+				bean.setModifiedDatetime(rs.getTimestamp(13));
+			}
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in getting User by PK");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
+	}
+
+	public UserBean findByLogin(String login) throws ApplicationException {
+
+		Connection conn = null;
+		UserBean bean = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_user where login = ?");
+
+			pstmt.setString(1, login);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new UserBean();
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setLogin(rs.getString(4));
+				bean.setPassword(rs.getString(5));
+				bean.setDob(rs.getDate(6));
+				bean.setMobileNo(rs.getString(7));
+				bean.setRoleId(rs.getLong(8));
+				bean.setGender(rs.getString(9));
+				bean.setCreatedBy(rs.getString(10));
+				bean.setModifiedBy(rs.getString(11));
+				bean.setCreatedDatetime(rs.getTimestamp(12));
+				bean.setModifiedDatetime(rs.getTimestamp(13));
+			}
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in getting User by login " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
+	}
+
+	public UserBean authenticate(String loginId, String password) throws ApplicationException {
+
+		Connection conn = null;
+		UserBean bean = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_user where login = ? and password = ?");
+
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, password);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new UserBean();
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setLogin(rs.getString(4));
+				bean.setPassword(rs.getString(5));
+				bean.setDob(rs.getDate(6));
+				bean.setMobileNo(rs.getString(7));
+				bean.setRoleId(rs.getLong(8));
+				bean.setGender(rs.getString(9));
+				bean.setCreatedBy(rs.getString(10));
+				bean.setModifiedBy(rs.getString(11));
+				bean.setCreatedDatetime(rs.getTimestamp(12));
+				bean.setModifiedDatetime(rs.getTimestamp(13));
+			}
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in get roles " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return bean;
+	}
+
+	public List search(UserBean bean, int pageNo, int pageSize) throws ApplicationException {
+
+		StringBuffer sql = new StringBuffer("select * from st_user where 1=1");
 
 		if (bean != null) {
-			if (bean.getId() != null && bean.getId() > 0) {
-				stf.append("and id = " + bean.getId());
-			}
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
-				stf.append("and first_name like '" + bean.getFirstName() + "%'");
+				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
 			}
-		}
-
-		if (bean != null) {
-			if (bean.getLastName() != null && bean.getLastName().length() > 0) {
-				stf.append("and last_name like '" + bean.getLastName() + "%'");
-			}
-		}
-
-		if (bean != null) {
-			if (bean.getLogin() != null && bean.getLogin().length() > 0) {
-				stf.append("and login like '" + bean.getLogin() + "%'");
-			}
-		}
-		if (bean != null) {
-			if (bean.getPassword() != null && bean.getPassword().length() > 0) {
-				stf.append("and password like '" + bean.getPassword() + "%'");
-			}
-		}
-
-		if (bean != null) {
 			if (bean.getDob() != null && bean.getDob().getTime() > 0) {
-				java.sql.Date d = new java.sql.Date(bean.getDob().getTime());
-				stf.append("and dob like '" + d + "%'");
-				System.out.println(stf.toString());
+				Date d = new Date(bean.getDob().getTime());
+				sql.append(" and dob like '" + d + "%'");
 			}
-		if(pageNo>0) {
-			pageNo = (pageNo -1)* pageSize;
-			stf.append("limit "+pageNo+","+pageSize);
+			if (bean.getRoleId() > 0) {
+				sql.append(" and role_id = " + bean.getRoleId());
+			}
 		}
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
-		System.out.println(stf.toString());
-		PreparedStatement pstmt = con.prepareStatement(stf.toString());
-		ResultSet rs = pstmt.executeQuery();
-		bean = null;
-		while (rs.next()) {
-			bean = new UserBean();
-			bean.setId(rs.getLong(1));
-			bean.setFirstName(rs.getString(2));
-			bean.setLastName(rs.getString(3));
-			list.add(bean);
+
+		System.out.println("sql ==>> " + sql.toString());
+
+		Connection conn = null;
+		List list = new ArrayList();
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new UserBean();
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setLogin(rs.getString(4));
+				bean.setPassword(rs.getString(5));
+				bean.setDob(rs.getDate(6));
+				bean.setMobileNo(rs.getString(7));
+				bean.setRoleId(rs.getLong(8));
+				bean.setGender(rs.getString(9));
+				bean.setCreatedBy(rs.getString(10));
+				bean.setModifiedBy(rs.getString(11));
+				bean.setCreatedDatetime(rs.getTimestamp(12));
+				bean.setModifiedDatetime(rs.getTimestamp(13));
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in search user " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
 		}
 		return list;
 	}
 
-	public UserBean findByLoginId(UserBean bean) throws SQLException, Exception {
-		Connection con = JDBCDataSource.getConnection();
-		PreparedStatement pstmt = con.prepareStatement("select * from st_user where login = ?");
-		pstmt.setString(1, bean.getLogin());
-		ResultSet rs = pstmt.executeQuery();
-		bean = null;
-		while (rs.next()) {
-			bean = new UserBean();
-			bean.setId(rs.getLong(1));
-			bean.setFirstName(rs.getString(2));
-		}
+	public long registerUser(UserBean bean) throws ApplicationException, DuplicateRecordException {
+		long pk = add(bean);
 
-		return bean;
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("login", bean.getLogin());
+		map.put("password", bean.getPassword());
+
+		String message = EmailBuilder.getUserRegistrationMessage(map);
+		EmailMessage msg = new EmailMessage();
+
+		msg.setTo(bean.getLogin());
+		msg.setSubject("Registration is Successful for ORS Project Sunilos");
+		msg.setMessage(message);
+		msg.setMessageType(EmailMessage.HTML_MSG);
+
+		EmailUtility.sendMail(msg);
+		return pk;
 	}
-	
-	public  List findByPk(UserBean bean) throws SQLException, Exception {
-	List list = new ArrayList();
-	Connection con = JDBCDataSource.getConnection();
-	PreparedStatement pstmt = con.prepareStatement("select * from st_user where id = ?");
-	pstmt.setLong(1,bean.getId());
-	ResultSet rs = pstmt.executeQuery();
-	bean = null;
-	while(rs.next()) {
-		bean = new UserBean();
-		bean.setId(rs.getLong(1));
-		bean.setFirstName(rs.getString(2));
-		bean.setLastName(rs.getString(3));
-		list.add(bean);
-	}
-	return  list;
-	}
-	
-	public UserBean authenticate(String loginId, String password) throws SQLException, Exception {
-		UserBean bean = new UserBean();
-		Connection con = JDBCDataSource.getConnection();
-
-		PreparedStatement pstmt = con.prepareStatement("select * from st_user where login = ? and password = ?");
-		pstmt.setString(1, loginId);
-		pstmt.setString(2, password);
-
-		ResultSet rs = pstmt.executeQuery();
-
-		bean = null;
-
-		while (rs.next()) {
-			bean = new UserBean();
-			bean.setId(rs.getLong(1));
-			bean.setFirstName(rs.getString(2));
-			bean.setLastName(rs.getString(3));
-			System.out.println(bean.getFirstName());
-		}
-
-		return bean;
-
-	}
-
-
 }

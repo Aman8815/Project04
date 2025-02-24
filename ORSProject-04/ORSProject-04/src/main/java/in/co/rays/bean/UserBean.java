@@ -13,6 +13,13 @@ public class UserBean  extends BaseBean{
 	private String mobileNo;
 	private Long roleId;
 	private String gender;
+	private String confirmPassword;
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
