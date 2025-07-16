@@ -1,0 +1,18 @@
+package com.rays.model;
+
+import java.sql.Connection;
+
+import com.rays.Bean.patientBean;
+import com.rays.util.JDBCDataSource;
+
+public class patientModel {
+	
+	public void add(patientBean bean) throws Exception {
+		
+		Connection con = JDBCDataSource.getConnection();
+		
+		
+		
+	}
+
+}

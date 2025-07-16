@@ -1,0 +1,32 @@
+package com.rays.test;
+
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import com.rays.Bean.patientBean;
+import com.rays.model.patientModel;
+
+public class Patienttest {
+	public static void main(String[] args) throws Exception {
+		add();
+	}
+
+	private static void add() throws Exception {
+		
+		patientBean bean = new patientBean();
+		patientModel model = new patientModel();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		bean.setId(1);
+		bean.setName("Arun");
+		bean.setDateOfVisit(new Timestamp(new Date().getTime()));
+		bean.setMobile("6263642541");
+		bean.setDisease("fiver");
+		 
+		model.add(bean);
+		
+	}
+
+}

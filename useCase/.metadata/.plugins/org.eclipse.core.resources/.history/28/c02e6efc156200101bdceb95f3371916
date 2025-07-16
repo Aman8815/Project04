@@ -1,0 +1,25 @@
+package com.rays.test;
+
+import java.text.SimpleDateFormat;
+
+import com.rays.Bean.patientBean;
+import com.rays.model.patientModel;
+
+public class Patienttest {
+	public static void main(String[] args) {
+		add();
+	}
+
+	private static void add() {
+		
+		patientBean bean = new patientBean();
+		patientModel model = new patientModel();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		bean.setId(1);
+		bean.setName("Arun");
+		bean.setDateOfVisit(sdf.parse("2024-11-09"));
+		
+	}
+
+}
