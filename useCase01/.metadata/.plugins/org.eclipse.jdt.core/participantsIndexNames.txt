@@ -1,0 +1,7 @@
+INDEX VERSION 1.131
+C:\Users\Aman Singh Yashona\Desktop\useCase01\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4047508662.index
+\Practice\src\main\resources
+C:\Users\Aman Singh Yashona\Desktop\useCase01\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\261548748.index
+\practice\src\main\resources
+C:\Users\Aman Singh Yashona\Desktop\useCase01\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2822630812.index
+\Practice\src\main\resources

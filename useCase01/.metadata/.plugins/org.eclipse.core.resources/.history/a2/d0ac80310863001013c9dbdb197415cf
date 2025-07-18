@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add_Patient</title>
+</head>
+<body>
+
+	<div align="center">
+		<h1>
+
+			<tr>
+				<th><font size="5px"> Add Patient </font></th>
+			</tr>
+			
+			<%   String s = (String)request.getAttribute("success"); %>
+			<tr><%=s %></tr>
+
+		</h1>
+
+	</div>
+	<div align="center">
+
+		<form action="m" method="post">
+			<table>
+
+				<tr>
+					<th>Name</th>
+					<td><input type="text" placeholder="enter the name" name= "name"></td>
+				</tr>
+
+				<tr>
+					<th>Email</th>
+					<td><input type="email" placeholder="Enter your email" name = "email"></td>
+				</tr>
+
+				<tr>
+					<th>mobile</th>
+					<td><input type="number"
+						placeholder="Enter your mobile number" name ="mobile"></td>
+				</tr>
+				
+				<tr>
+				 <th>VisitOfDate</th>
+				 <td><input type="date" placeholder ="Enter current date" name = "date"></td>
+
+				<tr>
+					<th>Disese</th>
+					<td><input type="text" placeholder="Enter disese" name ="disese"></td>
+				</tr>
+
+				<tr>
+					<th>Address</th>
+					<td><input type="text" placeholder="Enter your Adrress" name = "address">
+					</td>
+				</tr>
+				
+				<tr>
+				<td><button type = "submit">Summit</button></td>
+				</tr>
+				
+			</table>
+		</form>
+	</div>
+</body>
+</html>

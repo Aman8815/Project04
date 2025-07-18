@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>amane</title>
+</head>
+<body>
+
+	<div align="center">
+		<h1>
+
+			<tr>
+				<th><font size="5px"> Add Patient </font></th>
+			</tr>
+
+		</h1>
+
+	</div>
+	<div align="center">
+
+		<form action="m" method="post">
+			<table>
+
+				<tr>
+					<th>Name</th>
+					<td><input type="text" placeholder="enter the name"></td>
+				</tr>
+
+				<tr>
+					<th>Email</th>
+					<td><input type="email" placeholder="Enter your email"></td>
+				</tr>
+
+				<tr>
+					<th>mobile</th>
+					<td><input type="number"
+						placeholder="Enter your mobile number"></td>
+				</tr>
+
+				<tr>
+					<th>Disese</th>
+					<td><input type="text" placeholder="Enter disese"></td>
+				</tr>
+
+				<tr>
+					<th>Address</th>
+					<td><input type="text" placeholder="Enter your Adrress">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

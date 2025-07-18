@@ -1,7 +1,0 @@
-INDEX VERSION 1.131
-C:\Users\Aman Singh Yashona\Desktop\useCase\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1979750520.index
-\HospitalManagement\src\main\java
-C:\Users\Aman Singh Yashona\Desktop\useCase\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1416610525.index
-\practice01\src\main\resources
-C:\Users\Aman Singh Yashona\Desktop\useCase\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\413239901.index
-\simple_project\src\main\resources
