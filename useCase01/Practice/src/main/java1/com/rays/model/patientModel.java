@@ -3,6 +3,7 @@ package com.rays.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,23 @@ import com.rays.Bean.patientBean;
 import com.rays.util.JDBCDataSource;
 
 public class patientModel {
+
+	public patientBean findByLogin(patientBean bean) throws Exception {
+		Connection con = JDBCDataSource.getConnection();
+
+		PreparedStatement pstmt = con
+				.prepareStatement("select * from patient where email = '" + bean.getEmail() + "%'");
+		
+		 ResultSet rs = pstmt.executeQuery();
+		 
+		 while(rs.next()) {
+			 bean = new patientBean();
+			 bean = null;
+			 ArrayList list = new ArrayList();
+			 bean.setId(rs.getInt(1));
+		 }
+		 return bean;
+	}
 
 	public patientBean findbymobile(patientBean bean) throws Exception {
 
@@ -53,7 +71,7 @@ public class patientModel {
 	public long add(patientBean bean) throws Exception {
 
 		Connection con = JDBCDataSource.getConnection();
-		String q = "insert into patient values (?,?,?,?,?,?,?)";
+		String q = "insert into patient values (?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -62,8 +80,9 @@ public class patientModel {
 		pstmt.setDate(3, new java.sql.Date(bean.getDateOfVisit().getTime()));
 		pstmt.setString(4, bean.getMobile());
 		pstmt.setString(5, bean.getDisease());
-		pstmt.setString(6,bean.getEmail());
-		pstmt.setString(7,bean.getAddress());
+		pstmt.setString(6, bean.getEmail());
+		pstmt.setString(7, bean.getAddress());
+		pstmt.setString(8,bean.getGender());
 
 		int i = pstmt.executeUpdate();
 
@@ -74,7 +93,7 @@ public class patientModel {
 
 	public void update(patientBean bean) throws Exception {
 		Connection con = JDBCDataSource.getConnection();
-		String q = "update patient set name = ? ,dateOfVisit = ? ,mobile = ? ,disease = ? where id = ?";
+		String q = "update patient set name = ? ,dateOfVisit = ? ,mobile = ? ,disease = ?,email=?,address=?,gender=? where id = ?";
 
 		PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -82,7 +101,11 @@ public class patientModel {
 		pstmt.setDate(2, new java.sql.Date(bean.getDateOfVisit().getTime()));
 		pstmt.setString(3, bean.getMobile());
 		pstmt.setString(4, bean.getDisease());
-		pstmt.setInt(5, bean.getId());
+		pstmt.setString(5,bean.getEmail());
+		pstmt.setString(6,bean.getAddress());
+		pstmt.setString(7,bean.getGender());
+		pstmt.setInt(8, bean.getId());
+		
 
 		int i = pstmt.executeUpdate();
 
@@ -95,35 +118,58 @@ public class patientModel {
 		String q = "delete from patient where id = ?";
 
 		PreparedStatement pstmt = con.prepareStatement(q);
-		
-		pstmt.setInt(1,id);
+
+		pstmt.setInt(1, id);
 		pstmt.executeUpdate();
-		
+
 		System.out.println("Data delete successfully");
 	}
-	
+
 	public List search(patientBean bean) throws Exception {
 		ArrayList list = new ArrayList();
-		
+
 		Connection con = JDBCDataSource.getConnection();
 		String q = "select * from patient ";
 
 		PreparedStatement pstmt = con.prepareStatement(q);
-		 
+
 		ResultSet rs = pstmt.executeQuery();
 		bean = null;
-		while(rs.next()) {
+		while (rs.next()) {
 			bean = new patientBean();
 			bean.setId(rs.getInt(1));
 			bean.setName(rs.getString(2));
 			bean.setDateOfVisit(rs.getDate(3));
 			bean.setMobile(rs.getString(4));
 			bean.setDisease(rs.getString(5));
+			bean.setAddress(rs.getString(7));
+			bean.setEmail(rs.getString(6));
+			bean.setGender(rs.getString(8));
 			list.add(bean);
 		}
-		
-		
+
 		return list;
+	}
+	
+	public patientBean findById(int id) throws Exception {
+		Connection con = JDBCDataSource.getConnection();
+		String q = "select * from patient where id ="+id;
+  System.out.println(q);
+		PreparedStatement pstmt = con.prepareStatement(q);
+		patientBean bean = new patientBean();
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			bean.setId(rs.getInt(1));
+			bean.setName(rs.getString(2));
+			bean.setDateOfVisit(rs.getDate(3));
+			bean.setMobile(rs.getString(4));
+			bean.setDisease(rs.getString(5));
+			bean.setAddress(rs.getString(7));
+			bean.setEmail(rs.getString(6));
+			bean.setGender(rs.getString(8));
+			
+		}
+		return bean;
 	}
 
 }

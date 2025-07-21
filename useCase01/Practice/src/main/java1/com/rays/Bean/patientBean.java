@@ -5,6 +5,13 @@ import java.util.Date;
 public class patientBean {
 	private String  email;
 	private String address;
+	private String gender;
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public String getEmail() {
 		return email;
 	}

@@ -1,0 +1,38 @@
+package com.rays.ctl;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+import com.rays.Bean.patientBean;
+import com.rays.model.patientModel;
+
+public class patiendListctl  extends HttpServlet{
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		 patientBean bean = new patientBean();
+		 patientModel model = new patientModel();
+		 
+		   try {
+		List list =	model.search(bean);
+		req.setAttribute("list",list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  resp.sendRedirect("PtientListview.jsp");
+		 
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+
+}

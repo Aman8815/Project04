@@ -1,0 +1,34 @@
+<%@page import="com.rays.Bean.patientBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient Data Entry</title>
+</head>
+<body>
+<div align = "center">
+
+<% 
+        patientBean bean = (patientBean)request.getAttribute("bean");
+     
+     
+     %>
+	<h2>Patient Data Entry Form</h2>
+	<form action="m" method="post">
+		Name: <input type="text" name="name" required <%=bean.getName() %>><br> <br>
+		Email: <input type="email" name="email" required><br> <br>
+		Address: <input type="text" name="address" required><br>
+		<br> Phone Number: <input type="text" name="phone" required><br>
+		<br> Disease: <input type="text" name="disease" required><br>
+		<br> Gender: <input type = "text" name="gender" required><br>
+		<br> <input type="submit" value="Submit">&nbsp;&nbsp;&nbsp;<input type = "reset" values="reset">
+	</form>
+	</div>
+</body>
+</html>
+</form>
+</div>
+</body>
+</html>

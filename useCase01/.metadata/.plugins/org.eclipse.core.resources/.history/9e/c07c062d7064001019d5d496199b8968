@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="com.rays.Bean.patientBean"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Patient_list_view</title>
+</head>
+<body>
+	<table border="1" width="100%" align="center" cellpadding=6px
+		cellspacing=".2">
+		<tr style="background: yellow">
+			<th>Id</th>
+			<th>Name</th>
+			<th>mobile_number</th>
+			<th>Email</th>
+			<th>disease</th>
+			<th>Address</th>
+			<th>Gender</th>
+			<th>Edit</th>
+		</tr>
+		
+		 <%   
+		 
+		    List list =  (List) request.getAttribute("list"); 
+		     
+		   Iterator<patientBean> it = list.iterator();
+		   
+		   while(it.hasNext()){
+		    	patientBean bean = (patientBean) it.next();
+		    	
+		 %>
+		 
+		 <tr style = "background-color: grey">
+   <td><%=bean.getId() %></td>
+   <td><%=bean.getName() %></td>
+   <td><%=bean.getMobile%></td>
+   <td><%=bean.getEmail %></td>
+   <td><%=bean.getDisease() %></td>
+   <td><%=bean.getAddress() %></td>
+
+		<%} %> 
+		 
+		
+		</table>
+</body>
+</html>

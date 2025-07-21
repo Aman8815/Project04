@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+	<%@page import="java.util.List"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Patient_list_view</title>
+</head>
+<body>
+	<table border="1" width="100%" align="center" cellpadding=6px
+		cellspacing=".2">
+		<tr style="background: yellow">
+			<th>Id</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>mobile_number</th>
+			<th>LoginId</th>
+			<th>Gender</th>
+			<th>Mobile No</th>
+			<th>Edit</th>
+		</tr>
+		
+		<%
+				List l = (List) request.getAttribute("list");
+	
+					while (it.hasNext()) {
+							bean = it.next();
+				%>
+		</table>
+</body>
+</html>

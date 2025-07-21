@@ -5,9 +5,12 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,15 +20,35 @@ import com.rays.Bean.patientBean;
 import com.rays.model.patientModel;
 import com.sun.mail.iap.Response;
 
-@WebServlet("/m")
+@WebServlet("/AddPatientctl")
 public class AddPatientctl extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		resp.sendRedirect("Addpatient.jsp");
-	}
+		String ids = req.getParameter("id");
+       
+         System.out.println(ids);
+         if(ids!=null) {
+        	  
+        	   patientModel model = new patientModel();
+        	   try {
+        		   int id = Integer.parseInt(ids);
+			 patientBean bean = model.findById(id);
+			   
+			 req.setAttribute("bean",bean);
+			 RequestDispatcher rd = req.getRequestDispatcher("Addpatient.jsp");
+				rd.forward(req, resp);	
+			
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+         }
+        
+            resp.sendRedirect("Addpatient.jsp");
+         }
+	
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,19 +56,32 @@ public class AddPatientctl extends HttpServlet {
 
 		patientBean bean = new patientBean();
 		patientModel model = new patientModel();
-
+      
 		bean.setName(req.getParameter("name"));
-		bean.setMobile(req.getParameter("mobile"));
+		bean.setMobile(req.getParameter("phone"));
 		bean.setEmail(req.getParameter("email"));
-		bean.setAddress(req.getParameter("phone"));
+		bean.setAddress(req.getParameter("address"));
 		bean.setDisease(req.getParameter("disease"));
+		bean.setGender(req.getParameter("gender"));
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		bean.setDateOfVisit(new Timestamp(new Date().getTime()));
-
+          
+		String ids = req.getParameter("id");
 		try {
-			long i = model.add(bean);
+			
+	   if(ids==null) {
+			model.add(bean);
+			req.setAttribute("msg","Data insert succesfully");
+			RequestDispatcher rd = req.getRequestDispatcher("Addpatient.jsp");
+			rd.forward(req, resp);
+			
+	   }else {
+		   bean.setId(Integer.parseInt(ids));
+		   model.update(bean);
+		   resp.sendRedirect("patiendListctl");
+	 
+	   }
 
-			resp.sendRedirect("index.jsp");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,0 +1,58 @@
+package com.rays.ctl;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.rays.Bean.patientBean;
+import com.rays.model.patientModel;
+import com.sun.mail.iap.Response;
+
+@WebServlet("/m")
+public class AddPatientctl extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		resp.sendRedirect("Addpatient.jsp");
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		patientBean bean = new patientBean();
+		patientModel model = new patientModel();
+
+		bean.setName(req.getParameter("name"));
+		bean.setMobile(req.getParameter("phone"));
+		bean.setEmail(req.getParameter("email"));
+		bean.setAddress(req.getParameter("address"));
+		bean.setDisease(req.getParameter("disease"));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		bean.setDateOfVisit(new Timestamp(new Date().getTime()));
+
+		try {
+			
+	
+			model.add(bean);
+			resp.sendRedirect("index.jsp");
+			
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

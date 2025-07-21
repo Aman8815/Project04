@@ -14,10 +14,20 @@ import com.rays.model.patientModel;
 
 public class Patienttest {
 	public static void main(String[] args) throws Exception {
-		add();
+		//add();
 		//update();
 		//delete();
 	 // search();
+		findbuid();
+	}
+
+	private static void findbuid() throws Exception {
+		// TODO Auto-generated method stub
+		patientModel model = new patientModel();
+	 patientBean bean = (patientBean)	model.findById(1);
+	 
+	  System.out.println(bean.getId());
+		
 	}
 
 	private static void search() throws Exception {

@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Patient_list_view</title>
+</head>
+<body>
+	<table border="1" width="100%" align="center" cellpadding=6px
+		cellspacing=".2">
+		<tr style="background: skyblue">
+			<th>S.No.</th>
+			<th>FirstName</th>
+			<th>LastName</th>
+			<th>Role</th>
+			<th>LoginId</th>
+			<th>Gender</th>
+			<th>Date Of Birth</th>
+			<th>Mobile No</th>
+			<th>Edit</th>
+		</tr>
+		</table>
+</body>
+</html>

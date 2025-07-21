@@ -8,9 +8,8 @@
 </head>
 <body>
 <div>
-  <a href = "m">Add_Patient</a>||
-  <a href = "#">UPDATE_Patient</a>||
-  <a href = "#">patient_List</a>
+  <a href = "AddPatientctl">Add_Patient</a>||
+  <a href = "patiendListctl">patient_List</a>
   </div>
 </body>
 </html>
