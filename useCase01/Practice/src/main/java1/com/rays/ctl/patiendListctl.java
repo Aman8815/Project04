@@ -21,14 +21,28 @@ public class patiendListctl extends HttpServlet {
 			throws ServletException, IOException {
 		patientBean bean = new patientBean();
 		patientModel model = new patientModel();
-
-		try {
-			List list = model.search(bean);
-			request.setAttribute("list", list);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+         
+		String op = request.getParameter("specility");
+		System.out.println(op);
+		if(op==null) {
+			 System.out.println("amAN");
+			 try {
+					List list = model.search(bean);
+					request.setAttribute("list", list);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}}
+			
+			else {
+				try {
+					System.out.println("aBHI");
+					List list = model.findByspecility(op);
+					request.setAttribute("list",list);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();}
+			}
 		RequestDispatcher rd = request.getRequestDispatcher("PtientListview.jsp");
 		rd.forward(request, response);
 
@@ -63,12 +77,15 @@ public class patiendListctl extends HttpServlet {
 
 	        } else {
 	            // 🟠 Agar koi record select nahi hua
-	        	request.getSession().setAttribute("msg", "at liast  tap one record .");
+	        	request.getSession().setAttribute("msg", " select at list one record .");
 	            response.sendRedirect("patiendListctl");
 	        }
 
 	    } else if ("new".equalsIgnoreCase(op)) {
 	        response.sendRedirect("Addpatient.jsp");
+	    }
+	    else if("Back".equalsIgnoreCase(op)) {
+	    	response.sendRedirect("DoctorListCtl");
 	    }
 	}
 }

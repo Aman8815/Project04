@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rays.Bean.doctorBean;
 import com.rays.Bean.patientBean;
 import com.rays.util.JDBCDataSource;
 
@@ -172,4 +173,30 @@ public class patientModel {
 		return bean;
 	}
 
+	public List findByspecility(String op) throws Exception {
+		Connection con = JDBCDataSource.getConnection();
+		String q = "select * from patient where disease  like '" +op+"%'";
+		System.out.println(q);
+		PreparedStatement pstmt = con.prepareStatement(q);
+		patientBean bean;
+		ResultSet rs = pstmt.executeQuery();
+		List list = new ArrayList();
+		bean = null;
+		while (rs.next()) {
+			bean = new patientBean();
+			bean.setId(rs.getInt(1));
+			bean.setName(rs.getString(2));
+			bean.setDateOfVisit(rs.getDate(3));
+			bean.setMobile(rs.getString(4));
+			bean.setDisease(rs.getString(5));
+			bean.setAddress(rs.getString(7));
+			bean.setEmail(rs.getString(6));
+			bean.setGender(rs.getString(8));
+			list.add(bean);
+		}
+		System.out.println("IN");
+		return list;
+		
+
+	}
 }

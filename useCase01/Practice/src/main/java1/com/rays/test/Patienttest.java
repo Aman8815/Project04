@@ -18,7 +18,21 @@ public class Patienttest {
 		//update();
 		//delete();
 	 // search();
-		findbuid();
+		//findbuid();
+		findbyspecility();
+	}
+
+	private static void findbyspecility() throws Exception {
+		// TODO Auto-generated method stub
+		 patientModel model = new patientModel();
+		 String op = "CANCER";
+		List list =   model.findByspecility(op);
+		
+		 Iterator it = list.iterator();
+		 while(it.hasNext()) {
+			 patientBean bean = (patientBean) it.next();
+			 System.out.println(bean.getDisease());
+		 }
 	}
 
 	private static void findbuid() throws Exception {

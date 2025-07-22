@@ -1,23 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page import="com.rays.Bean.doctorBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
-<%@page import="com.rays.Bean.patientBean"%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Patient_list_view</title>
+<title>Insert title here</title>
 </head>
 <body>
 <%@ include file="Header.jsp"%>
 <hr>
-<form action="patiendListctl" method = "post">
+<form action="DoctorListCtl" method = "post">
 	<table border="1" width="100%" align="center" cellpadding=6px
 		cellspacing=".2">
 	<div align="center">	
-	<h2 style ="color:red">Patient_List</h2>
+	<h2 style ="color:red">Doctor_List</h2>
 	<%
     String msg = (String) session.getAttribute("msg");
     if (msg != null) {
@@ -32,22 +31,24 @@
              <th>select</th>
 			<th>Id</th>
 			<th>Name</th>
-			<th>mobile_number</th>
 			<th>Email</th>
-			<th>disease</th>
+			<th>mobile_number</th>
+			<th>specility</th>
 			<th>Address</th>
 			<th>Gender</th>
+			<th>WorkDay</th>
 			<th>Edit</th>
+			<th>SEE_Patient</th>
 		</tr>
 		
 		 <%   
 		 
 		    List list =  (List) request.getAttribute("list"); 
 		     
-		   Iterator<patientBean> it = list.iterator();
+		   Iterator<doctorBean> it = list.iterator();
 		   
 		   while(it.hasNext()){
-		    	patientBean bean = (patientBean) it.next();
+			   doctorBean bean = (doctorBean) it.next();
 		    	
 		 %>
 		 
@@ -55,12 +56,14 @@
 		 <td><input type = "checkbox" class="checkbox" name="ids" value="<%=bean.getId() %>"></td>
    <td><%=bean.getId() %></td>
    <td><%=bean.getName() %></td>
-   <td><%=bean.getMobile()%></td>
    <td><%=bean.getEmail() %></td>
-   <td><%=bean.getDisease() %></td>
+   <td><%=bean.getPhone()%></td>
+   <td><%=bean.getSpecility() %></td>
    <td><%=bean.getAddress() %></td>
    <td><%=bean.getGender() %></td>
-  <td><a href="AddPatientctl?id=<%=bean.getId()%>">Edit</a></td>
+   <td><%=bean.getWorkday() %></td>
+  <td><a href="AddDoctorctl?id=<%=bean.getId()%>">Edit</a></td>
+  <td><a href="patiendListctl?specility=<%=bean.getSpecility()%>">See</a></td>
 		<%} %> 
 		 
 		
@@ -73,11 +76,10 @@
 				
 					<td><input type="submit" name="operation"
 						value="new"></td>
-                     <td><input type = "submit" name="operation" value="Back"></td>
+
 				</tr>
 			</table>		
 		
 		</form>
-	
 </body>
 </html>

@@ -8,8 +8,13 @@
 </head>
 <body>
 <div>
+<br>
+<br>
+<br>
   <a href = "AddPatientctl">Add_Patient</a>||
-  <a href = "patiendListctl">patient_List</a>
+  <a href = "patiendListctl">patient_List</a>||
+  <a href = "AddDoctorctl">Add_Doctor</a>||
+  <a href = "DoctorListCtl">Doctor_List</a>
   </div>
 </body>
 </html>
