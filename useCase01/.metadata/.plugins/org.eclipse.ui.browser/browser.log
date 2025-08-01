@@ -1,0 +1,16 @@
+
+Jul 22, 2025 11:57:05.82 NEW SESSION
+Jul 22, 2025 11:57:05.82 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+Jul 22, 2025 11:57:05.82 I0000 00:00:1753165625.817873   17532 voice_transcription.cc:58] Registering VoiceTranscriptionCapability
+Jul 22, 2025 11:57:06.03 [16052:10784:0722/115706.036:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Jul 22, 2025 11:57:07.42 Created TensorFlow Lite XNNPACK delegate for CPU.
+Jul 22, 2025 11:57:07.46 Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#-1 is a dynamic-sized tensor).
+Jul 22, 2025 11:57:33.00 [16052:10784:0722/115733.004:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Jul 22, 2025 11:58:18.21 [16052:10784:0722/115818.218:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Jul 22, 2025 11:59:47.37 [16052:10784:0722/115947.372:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Jul 22, 2025 12:01:38.60 [16052:8964:0722/120138.607:ERROR:components\device_event_log\device_event_log_impl.cc:198] [12:01:38.607] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: Element not found. (0x490)
+Jul 22, 2025 12:02:34.06 [16052:10784:0722/120234.066:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Jul 22, 2025 12:09:23.30 [16052:10784:0722/120923.302:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+Jul 22, 2025 12:15:31.22 [16052:8964:0722/121531.225:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:732] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 22, 2025 12:15:38.88 [16052:8964:0722/121538.881:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:732] Message 1 rejected by interface blink.mojom.WidgetHost
+Jul 22, 2025 12:16:11.56 [16052:10784:0722/121611.564:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT

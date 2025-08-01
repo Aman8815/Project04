@@ -12,6 +12,7 @@
 </head>
 <body>
 <%@ include file="Header.jsp"%>
+<hr>
 <form action="patiendListctl" method = "post">
 	<table border="1" width="100%" align="center" cellpadding=6px
 		cellspacing=".2">
@@ -72,7 +73,7 @@
 				
 					<td><input type="submit" name="operation"
 						value="new"></td>
-
+                     <td><input type = "submit" name="operation" value="Back"></td>
 				</tr>
 			</table>		
 		

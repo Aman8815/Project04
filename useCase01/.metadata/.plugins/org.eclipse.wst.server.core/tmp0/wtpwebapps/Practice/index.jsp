@@ -10,14 +10,12 @@
 
 	<br>
 	<br>
-<%@ include file="Header.jsp"%>
-<hr>
+
 	<br>
 	<br>
 
 	<h1 align="center">
-		<font size="10px" color="red" style = "text-decoration: none">
-				Hospital Management System</a></font>
+				<h1 align = "center"><a href = "Welcome.jsp">Welcome to my Website</a></h1>
 	</h1>
 </body>
 </html>

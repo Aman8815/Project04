@@ -1,0 +1,34 @@
+package com.rays.ctl;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.rays.Bean.AdminBean;
+
+@WebServlet("/AddAdminctl")
+public class AddAdminctl extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		response.sendRedirect("Add_Admin.jsp");
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		AdminBean bean = new AdminBean();
+		bean.setName(request.getParameter("fname"));
+		bean.setEmail(request.getParameter("email"));
+		bean.setPassword(request.getParameter("password"));
+		bean.setRollid(Integer.parseInt(request.getParameter("rollid")));
+
+	}
+
+}

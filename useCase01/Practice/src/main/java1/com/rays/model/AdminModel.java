@@ -1,0 +1,105 @@
+package com.rays.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.rays.Bean.AdminBean;
+import com.rays.Bean.doctorBean;
+import com.rays.util.JDBCDataSource;
+
+public class AdminModel {
+
+	public int nextpk() throws Exception {
+		int pk = 0;
+		Connection con = JDBCDataSource.getConnection();
+
+		PreparedStatement pstmt = con.prepareStatement("select max(id)from admin");
+
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			pk = rs.getInt(1);
+		}
+
+		return pk + 1;
+	}
+
+	public int add(AdminBean bean) throws Exception {
+		Connection con = JDBCDataSource.getConnection();
+		String q = "insert into admin values (?,?,?,?,?)";
+
+		PreparedStatement pstmt = con.prepareStatement(q);
+
+		pstmt.setInt(1, nextpk());
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getEmail());
+		pstmt.setString(4, bean.getPassword());
+		pstmt.setInt(5, bean.getRollid());
+		int i = pstmt.executeUpdate();
+
+		if (i == 0) {
+			return 0;
+		} else {
+               
+			System.out.println("Data Inserted  Successfully !!!" + i);
+			return 1;
+		}
+	}
+
+	public void update(AdminBean bean) throws Exception {
+		Connection con = JDBCDataSource.getConnection();
+		String q = "update admin set name = ? ,email = ? ,password = ? ,rollid = ? where id = ?";
+
+		PreparedStatement pstmt = con.prepareStatement(q);
+
+		pstmt.setString(1, bean.getName());
+		pstmt.setString(2, bean.getEmail());
+		pstmt.setString(3, bean.getPassword());
+		pstmt.setInt(4, bean.getRollid());
+		pstmt.setInt(5, bean.getId());
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("Data Update Successfully !!!" + i);
+
+	}
+
+	public void delete(int id) throws Exception {
+		Connection con = JDBCDataSource.getConnection();
+		String q = "delete from admin where id = ?";
+
+		PreparedStatement pstmt = con.prepareStatement(q);
+
+		pstmt.setInt(1, id);
+		pstmt.executeUpdate();
+
+		System.out.println("Data delete successfully");
+	}
+
+	public List search(AdminBean bean) throws Exception {
+		ArrayList list = new ArrayList();
+
+		Connection con = JDBCDataSource.getConnection();
+		String q = "select * from admin ";
+
+		PreparedStatement pstmt = con.prepareStatement(q);
+
+		ResultSet rs = pstmt.executeQuery();
+		bean = null;
+		while (rs.next()) {
+			bean = new AdminBean();
+			bean.setId(rs.getInt(1));
+			bean.setName(rs.getString(2));
+			bean.setEmail(rs.getString(3));
+			bean.setPassword(rs.getString(4));
+			bean.setRollid(rs.getInt(5));
+			list.add(bean);
+		}
+
+		return list;
+	}
+
+}

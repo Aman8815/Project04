@@ -1,0 +1,12 @@
+package com.rays.model;
+
+public class AdminModel {
+	
+	public int nextpk() {
+		
+		
+		
+		return 0;
+	}
+
+}

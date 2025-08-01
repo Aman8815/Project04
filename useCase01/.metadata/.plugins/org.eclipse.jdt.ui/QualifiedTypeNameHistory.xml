@@ -3,14 +3,20 @@
     <fullyQualifiedTypeName name="com.rays.util.JDBCDataSource"/>
     <fullyQualifiedTypeName name="com.sun.mail.iap.Response"/>
     <fullyQualifiedTypeName name="java.time.LocalDate"/>
-    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
     <fullyQualifiedTypeName name="org.w3c.dom.ls.LSInput"/>
-    <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="jdk.nashorn.internal.ir.RuntimeNode.Request"/>
+    <fullyQualifiedTypeName name="com.rays.model.doctorModel"/>
+    <fullyQualifiedTypeName name="com.rays.Bean.doctorBean"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="com.rays.Bean.patientBean"/>
     <fullyQualifiedTypeName name="com.rays.model.patientModel"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="com.rays.Bean.patientBean"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="com.rays.Bean.AdminBean"/>
+    <fullyQualifiedTypeName name="com.rays.model.AdminModel"/>
     <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 </qualifiedTypeNameHistroy>
