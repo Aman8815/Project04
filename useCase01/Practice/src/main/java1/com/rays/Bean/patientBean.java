@@ -6,6 +6,27 @@ public class patientBean {
 	private String  email;
 	private String address;
 	private String gender;
+	private String Description;
+	private int deposit;
+	private int total;
+	public String getDescription() {
+		return Description;
+	}
+	public void setDescription(String description) {
+		Description = description;
+	}
+	public int getDeposit() {
+		return deposit;
+	}
+	public void setDeposit(int deposit) {
+		this.deposit = deposit;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	public String getGender() {
 		return gender;
 	}

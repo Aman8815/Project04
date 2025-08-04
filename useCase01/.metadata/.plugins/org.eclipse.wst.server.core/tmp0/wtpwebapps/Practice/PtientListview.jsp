@@ -37,6 +37,10 @@
 			<th>disease</th>
 			<th>Address</th>
 			<th>Gender</th>
+			<th>Description</th>
+			<th>Deposit</th>
+			<th>Total</th>
+			<th>Remaining</th>
 			<th>Edit</th>
 		</tr>
 		
@@ -60,6 +64,10 @@
    <td><%=bean.getDisease() %></td>
    <td><%=bean.getAddress() %></td>
    <td><%=bean.getGender() %></td>
+   <td><%=bean.getDescription() %></td>
+   <td><%=bean.getDeposit() %></td>
+   <td><%=bean.getTotal() %></td>
+   <td><%=bean.getTotal()-bean.getDeposit() %></td>
   <td><a href="AddPatientctl?id=<%=bean.getId()%>">Edit</a></td>
 		<%} %> 
 		 

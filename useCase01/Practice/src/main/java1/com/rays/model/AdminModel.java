@@ -101,5 +101,26 @@ public class AdminModel {
 
 		return list;
 	}
+	
+	public AdminBean accurance(String email , String pass) throws Exception {
+		
+		Connection con = JDBCDataSource.getConnection();
+		String q = "select * from admin where email ='"+email+"'and password ='"+pass+"'";
+        System.out.println(q);
+		PreparedStatement pstmt = con.prepareStatement(q);
+        AdminBean bean =null;
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			bean = new AdminBean();
+			bean.setId(rs.getInt(1));
+			bean.setName(rs.getString(2));
+			bean.setEmail(rs.getString(3));
+			bean.setPassword(rs.getString(4));
+			bean.setRollid(rs.getInt(5));
+		
+		
+	}
+		return bean; 
+	}
 
 }

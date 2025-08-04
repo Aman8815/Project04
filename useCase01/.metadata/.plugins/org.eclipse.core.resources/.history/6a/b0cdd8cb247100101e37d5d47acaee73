@@ -1,0 +1,120 @@
+<%@page import="com.rays.model.RoleModel"%>
+<%@page import="com.rays.Bean.RoleBean"%>
+<%@page import="com.rays.Bean.AdminBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Header_File</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .header {
+        position: relative; /* Fix for absolute logout link */
+        background-color: #0f6cbf;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .header h2 {
+        margin: 10px 0;
+    }
+
+    .header a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+        padding: 8px 12px;
+        border-radius: 5px;
+        background-color: #0f4d92;
+    }
+
+    .header a:hover {
+        background-color: #093f75;
+    }
+
+    .logout-link {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        background-color: #d9534f;
+        padding: 6px 12px;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .logout-link:hover {
+        background-color: #c9302c;
+    }
+</style>
+</head>
+<body>
+
+<%
+    AdminBean user = (AdminBean) session.getAttribute("user");
+    RoleBean rbean = new RoleBean();
+    RoleModel rmodel = new RoleModel();
+
+    if (user != null && RoleBean.ADMIN == user.getRollid()) {
+        rbean = rmodel.findById(user.getRollid());
+%>
+    <div class="header">
+        <a class="logout-link" href="AdminLoginctl">Logout</a>
+        <h2>Hi, <%= user.getName() != null ? user.getName().trim() : "Admin" %> 
+        (<%= rbean.getName() != null ? rbean.getName().trim() : "Admin Role" %>)</h2>
+        <div>
+            <a href="AddPatientctl">Add Patient</a>
+            <a href="PatientListCtl">Patient List</a>
+            <a href="AddDoctorctl">Add Doctor</a>
+            <a href="DoctorListCtl">Doctor List</a>
+            <a href="AddAdminctl">Add Admin</a>
+        </div>
+    </div>
+
+<%
+    } else if (user != null && RoleBean.DOCTOR == user.getRollid()) {
+        rbean = rmodel.findById(user.getRollid());
+%>
+    <div class="header">
+        <a class="logout-link" href="AdminLoginctl">Logout</a>
+        <h2>Hi, <%= user.getName() != null ? user.getName().trim() : "Doctor" %> 
+        (<%= rbean.getName() != null ? rbean.getName().trim() : "Doctor Role" %>)</h2>
+        <div>
+            <a href="PatientListCtl">Patient List</a>
+        </div>
+    </div>
+
+<%
+    } else if (user != null && RoleBean.NURSE == user.getRollid()) {
+%>
+    <div class="header">
+        <a class="logout-link" href="AdminLoginctl">Logout</a>
+        <h2>Hi, Nurse</h2>
+        <div>
+            <a href="PatientListCtl">Patient List</a>
+        </div>
+    </div>
+
+<%
+    } else {
+%>
+    <div class="header">
+        <h2>Hi, Guest</h2>
+        <a href="Admin_Login.jsp">Login</a>
+    </div>
+<%
+    }
+%>
+
+</body>
+</html>
+	

@@ -1,0 +1,33 @@
+<%@page import="com.rays.model.RoleModel"%>
+<%@page import="com.rays.Bean.RoleBean"%>
+<%@page import="com.rays.Bean.AdminBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Header_File</title>
+</head>
+<body>
+	<%
+		AdminBean user = (AdminBean) session.getAttribute("user");
+        RoleBean rbean  = new RoleBean();
+		RoleModel rmodel = new RoleModel();
+            rbean =  rmodel.findById(user.getRollid());
+		if (user != null && RoleBean.ADMIN == user.getRollid()) {
+	%>
+	<div>
+		<h1>
+			Hii<%=user.getName()%>(<%=rbean.getName()%>);
+		</h1>
+		<br> <a href="AddPatientctl">Add_Patient</a>|| <a
+			href="patiendListctl">patient_List</a>|| <a href="AddDoctorctl">Add_Doctor</a>||
+		<a href="DoctorListCtl">Doctor_List</a>|| <a href="AddAdminctl">Add_Admin</a>
+	</div>
+
+	<%
+		}
+	%>
+</body>
+</html>

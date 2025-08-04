@@ -72,7 +72,7 @@ public class patientModel {
 	public long add(patientBean bean) throws Exception {
 
 		Connection con = JDBCDataSource.getConnection();
-		String q = "insert into patient values (?,?,?,?,?,?,?,?)";
+		String q = "insert into patient values (?,?,?,?,?,?,?,?,?,?,?)";
 
 		PreparedStatement pstmt = con.prepareStatement(q);
 
@@ -84,6 +84,9 @@ public class patientModel {
 		pstmt.setString(6, bean.getEmail());
 		pstmt.setString(7, bean.getAddress());
 		pstmt.setString(8,bean.getGender());
+		pstmt.setString(9,bean.getDescription());
+		pstmt.setInt(10,bean.getDeposit());
+		pstmt.setInt(11,bean.getTotal());
 
 		int i = pstmt.executeUpdate();
 
@@ -146,6 +149,9 @@ public class patientModel {
 			bean.setAddress(rs.getString(7));
 			bean.setEmail(rs.getString(6));
 			bean.setGender(rs.getString(8));
+			bean.setDescription(rs.getString(9));
+			bean.setDeposit(rs.getInt(10));
+			bean.setTotal(rs.getInt(11));
 			list.add(bean);
 		}
 

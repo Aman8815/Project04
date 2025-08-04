@@ -57,15 +57,17 @@ public class AddPatientctl extends HttpServlet {
 		patientBean bean = new patientBean();
 		patientModel model = new patientModel();
       
-		bean.setName(req.getParameter("name"));
-		bean.setMobile(req.getParameter("phone"));
-		bean.setEmail(req.getParameter("email"));
-		bean.setAddress(req.getParameter("address"));
-		bean.setDisease(req.getParameter("disease"));
-		bean.setGender(req.getParameter("gender"));
+		bean.setName(req.getParameter("name").trim());
+		bean.setMobile(req.getParameter("phone").trim());
+		bean.setEmail(req.getParameter("email").trim());
+		bean.setAddress(req.getParameter("address").trim());
+		bean.setDisease(req.getParameter("disease").trim());
+		bean.setGender(req.getParameter("gender").trim());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		bean.setDateOfVisit(new Timestamp(new Date().getTime()));
-          
+         bean.setTotal(Integer.parseInt(req.getParameter("Total"))); 
+         bean.setDeposit(Integer.parseInt(req.getParameter("Deposit")));
+         bean.setDescription(req.getParameter("Description").trim());
 		String ids = req.getParameter("id");
 		try {
 			

@@ -1,0 +1,52 @@
+<%@page import="com.rays.model.RoleModel"%>
+<%@page import="com.rays.Bean.RoleBean"%>
+<%@page import="com.rays.Bean.AdminBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Header_File</title>
+</head>
+<body>
+
+	<%
+		AdminBean user = (AdminBean) session.getAttribute("user");
+		if (user != null) {
+			RoleBean rbean = new RoleBean();
+			RoleModel rmodel = new RoleModel();
+			rbean = rmodel.findById(user.getRollid());
+		}
+		if (user != null && RoleBean.ADMIN == user.getRollid()) {
+	%>
+	<div>
+		<a href="AdminLoginctl">Log_out</a>
+		<h2>
+			Hii ,<%=user.getName()%>
+			(<%=rbean.getName()%>);
+		</h2>
+		<br> <a href="AddPatientctl">Add_Patient</a>|| <a
+			href="patiendListctl">patient_List</a>|| <a href="AddDoctorctl">Add_Doctor</a>||
+		<a href="DoctorListCtl">Doctor_List</a>|| <a href="AddAdminctl">Add_Admin</a>
+	</div>
+	<%
+		} else if (user != null && RoleBean.DOCTOR == user.getRollid()) {
+	%>
+	<h2>
+		Hii ,<%=user.getName()%>
+		(<%=rbean.getName()%>);
+	</h2>
+	<a href="AddPatientctl">Add_Patient</a>||
+	<a href="patiendListctl">patient_List</a>||
+	<%
+		} else {
+	%>
+	<a href="Admin_Login.jsp">Login</a>
+	<h2>Hii,guest</h2>
+
+	<%
+		}
+	%>
+</body>
+</html>

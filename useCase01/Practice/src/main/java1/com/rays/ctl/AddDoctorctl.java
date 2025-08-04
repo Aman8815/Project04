@@ -46,13 +46,13 @@ public class AddDoctorctl extends HttpServlet{
 		doctorBean bean = new doctorBean();
 		doctorModel model = new doctorModel();
 		 
-		 bean.setName(request.getParameter("name"));
-		 bean.setEmail(request.getParameter("email"));
-		 bean.setPhone(request.getParameter("phone"));
-		 bean.setSpecility(request.getParameter("specility"));
-		 bean.setAddress(request.getParameter("address"));
-		 bean.setGender(request.getParameter("gender"));
-		 bean.setWorkday(request.getParameter("workday"));
+		 bean.setName(request.getParameter("name").trim());
+		 bean.setEmail(request.getParameter("email").trim());
+		 bean.setPhone(request.getParameter("phone").trim());
+		 bean.setSpecility(request.getParameter("specility").trim());
+		 bean.setAddress(request.getParameter("address").trim());
+		 bean.setGender(request.getParameter("gender").trim());
+		 bean.setWorkday(request.getParameter("workday").trim());
 		 String ids = request.getParameter("id");
 		 if(ids==null) {
 		  try {

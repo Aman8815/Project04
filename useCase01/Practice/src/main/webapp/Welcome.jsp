@@ -3,17 +3,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Welcome - Hospital Management System</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #a0d9f6, #d1e9ff);
+        }
+
+        .container {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .container h2 {
+            font-size: 36px;
+            color: #0f4d92;
+        }
+
+        .container p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: #0f6cbf;
+            color: white;
+            border: none;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #094a81;
+        }
+    </style>
 </head>
 <body>
-<%@ include file="Header.jsp"%>
- 
-  <hr>
-  <br>
-  <br>
-  <br>
-  <h1  align = "center"><font size="10px" color="red">
-				Hospital Management System</font></h1>
+
+    <%@ include file="Header.jsp" %> <!-- If you're using JSP -->
+    <!-- Or use: <div id="header"></div> and include via JS if plain HTML -->
+
+    <div class="container">
+        <h2>Welcome to Hospital Management System</h2>
+        <p>Your health is our top priority. Use the navigation above to get started.</p>
+        
+    </div>
+
 </body>
 </html>

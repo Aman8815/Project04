@@ -6,80 +6,169 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+  <meta charset="ISO-8859-1">
+  <title>Doctor List</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #89f7fe, #66a6ff);
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .msg {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    th {
+      background-color: #2563eb;
+      color: white;
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    td {
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f3f4f6;
+    }
+
+    tr:hover {
+      background-color: #e0f2fe;
+    }
+
+    input[type="submit"] {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1e40af;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-row {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<%@ include file="Header.jsp"%>
-<hr>
-<form action="DoctorListCtl" method = "post">
-	<table border="1" width="100%" align="center" cellpadding=6px
-		cellspacing=".2">
-	<div align="center">	
-	<h2 style ="color:red">Doctor_List</h2>
-	<%
+
+<%@ include file="Header.jsp" %>
+
+<div class="container">
+  <h2>Doctor List</h2>
+
+  <%
     String msg = (String) session.getAttribute("msg");
     if (msg != null) {
-%>
-    <h2 style="color: green;" ><%= msg %></h2>
-<%
-        session.removeAttribute("msg"); // ek baar show karne ke baad hata do
+  %>
+    <div class="msg"><%= msg %></div>
+  <%
+      session.removeAttribute("msg");
     }
-%>
-</div>
-<tr style = "background-color:yellow">
-             <th>select</th>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Email</th>
-			<th>mobile_number</th>
-			<th>specility</th>
-			<th>Address</th>
-			<th>Gender</th>
-			<th>WorkDay</th>
-			<th>Edit</th>
-			<th>SEE_Patient</th>
-		</tr>
-		
-		 <%   
-		 
-		    List list =  (List) request.getAttribute("list"); 
-		     
-		   Iterator<doctorBean> it = list.iterator();
-		   
-		   while(it.hasNext()){
-			   doctorBean bean = (doctorBean) it.next();
-		    	
-		 %>
-		 
-		 <tr style = "background-color:white">
-		 <td><input type = "checkbox" class="checkbox" name="ids" value="<%=bean.getId() %>"></td>
-   <td><%=bean.getId() %></td>
-   <td><%=bean.getName() %></td>
-   <td><%=bean.getEmail() %></td>
-   <td><%=bean.getPhone()%></td>
-   <td><%=bean.getSpecility() %></td>
-   <td><%=bean.getAddress() %></td>
-   <td><%=bean.getGender() %></td>
-   <td><%=bean.getWorkday() %></td>
-  <td><a href="AddDoctorctl?id=<%=bean.getId()%>">Edit</a></td>
-  <td><a href="patiendListctl?specility=<%=bean.getSpecility()%>">See</a></td>
-		<%} %> 
-		 
-		
-		</table>
-	<table width="100%">
-				<tr>
-					<th></th>
-					<td><input type="submit" name="operation"
-						value="delete"></td>
-				
-					<td><input type="submit" name="operation"
-						value="new"></td>
+  %>
 
-				</tr>
-			</table>		
-		
-		</form>
+  <form action="DoctorListCtl" method="post">
+    <table border="1">
+      <tr>
+        <th>Select</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Speciality</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Work Day</th>
+        <th>Edit</th>
+        <th>See Patients</th>
+      </tr>
+
+      <%
+        List<doctorBean> list = (List<doctorBean>) request.getAttribute("list");
+        if (list != null && !list.isEmpty()) {
+          for (doctorBean bean : list) {
+      %>
+      <tr>
+        <td><input type="checkbox" name="ids" value="<%= bean.getId() %>"></td>
+        <td><%= bean.getId() %></td>
+        <td><%= bean.getName().trim() %></td>
+        <td><%= bean.getEmail().trim() %></td>
+        <td><%= bean.getPhone() %></td>
+        <td><%= bean.getSpecility() %></td>
+        <td><%= bean.getAddress() %></td>
+        <td><%= bean.getGender() %></td>
+        <td><%= bean.getWorkday() %></td>
+        <td><a href="AddDoctorctl?id=<%= bean.getId() %>">Edit</a></td>
+        <td><a href="patiendListctl?specility=<%= bean.getSpecility() %>">See</a></td>
+      </tr>
+      <%
+          }
+        } else {
+      %>
+      <tr>
+        <td colspan="11" style="text-align:center; color:red;">No doctor records found.</td>
+      </tr>
+      <% } %>
+    </table>
+
+    <div class="btn-row">
+      <input type="submit" name="operation" value="delete">
+      <input type="submit" name="operation" value="new">
+    </div>
+  </form>
+</div>
+
 </body>
 </html>
