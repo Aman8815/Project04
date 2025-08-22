@@ -73,3 +73,13 @@
 0:0:0:0:0:0:0:1 - - [04/Aug/2025:16:53:51 +0530] "GET /Practice/DoctorListCtl HTTP/1.1" 200 6680
 0:0:0:0:0:0:0:1 - - [04/Aug/2025:16:53:55 +0530] "GET /Practice/patiendListctl HTTP/1.1" 200 3527
 0:0:0:0:0:0:0:1 - - [04/Aug/2025:16:55:34 +0530] "GET /Practice/DoctorListCtl HTTP/1.1" 200 6680
+127.0.0.1 - - [04/Aug/2025:17:42:24 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:42:26 +0530] "GET /Practice/ HTTP/1.1" 200 312
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:42:26 +0530] "GET /favicon.ico HTTP/1.1" 404 762
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:42:34 +0530] "GET /Practice/Welcome.jsp HTTP/1.1" 200 2610
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:42:35 +0530] "GET /Practice/Admin_Login.jsp HTTP/1.1" 200 1746
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:42:57 +0530] "POST /Practice/AdminLoginctl HTTP/1.1" 500 2940
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:42:59 +0530] "GET /Practice/patiendListctl HTTP/1.1" 200 3527
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:43:02 +0530] "GET /Practice/DoctorListCtl HTTP/1.1" 200 6680
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:43:04 +0530] "GET /Practice/AddAdminctl HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [04/Aug/2025:17:43:04 +0530] "GET /Practice/Add_Admin.jsp HTTP/1.1" 200 1731

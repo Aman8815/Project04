@@ -58,3 +58,27 @@ Aug 04, 2025 16:00:32.01 [1780:9708:0804/160032.018:ERROR:google_apis\gcm\engine
 Aug 04, 2025 16:17:55.02 [1780:9708:0804/161755.027:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
 Aug 04, 2025 16:18:55.66 [1780:9708:0804/161855.665:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
 Aug 04, 2025 16:18:58.26 [1780:9016:0804/161858.260:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:732] Message 1 rejected by interface blink.mojom.WidgetHost
+
+Aug 04, 2025 17:42:29.65 NEW SESSION
+Aug 04, 2025 17:42:29.65 [2624:6640:0804/174229.650:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 04, 2025 17:42:29.70 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+Aug 04, 2025 17:42:29.70 I0000 00:00:1754309549.703947   19752 voice_transcription.cc:58] Registering VoiceTranscriptionCapability
+Aug 04, 2025 17:42:29.98 Created TensorFlow Lite XNNPACK delegate for CPU.
+Aug 04, 2025 17:42:29.99 Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#-1 is a dynamic-sized tensor).
+Aug 04, 2025 17:42:53.91 [2624:6640:0804/174253.910:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+
+Aug 05, 2025 24:12:55.73 NEW SESSION
+Aug 05, 2025 24:12:55.73 [3992:24544:0805/001255.735:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:12:55.73 [3992:24544:0805/001255.735:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:12:55.80 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+Aug 05, 2025 24:12:55.80 I0000 00:00:1754332975.803097    7012 voice_transcription.cc:58] Registering VoiceTranscriptionCapability
+Aug 05, 2025 24:12:56.29 Created TensorFlow Lite XNNPACK delegate for CPU.
+Aug 05, 2025 24:12:56.31 Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#-1 is a dynamic-sized tensor).
+Aug 05, 2025 24:13:19.91 [3992:24544:0805/001319.915:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:13:24.62 [3992:8840:0805/001324.622:ERROR:components\signin\internal\identity_manager\account_info_fetcher.cc:62] OnGetTokenFailure: Connection failed (-106).
+Aug 05, 2025 24:13:24.93 [3992:24544:0805/001324.939:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:14:06.93 [3992:24544:0805/001406.933:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:14:19.11 [3992:24544:0805/001419.117:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:15:42.07 [3992:24544:0805/001542.072:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:15:42.48 [3992:24544:0805/001542.485:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
+Aug 05, 2025 24:18:39.92 [3992:24544:0805/001839.924:ERROR:google_apis\gcm\engine\registration_request.cc:274] Registration URL fetching failed.
