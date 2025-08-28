@@ -47,9 +47,8 @@ public abstract class BaseCtl extends HttpServlet {
 	 */
 	public static final String MSG_ERROR = "error";
 
+	
 	/**
-	 * Validates input data entered by User
-	 *
 	 * @param request
 	 * @return
 	 */
